@@ -1,0 +1,101 @@
+﻿@using System.Globalization
+@{
+    
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/bootstrap/css")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    
+    <style type="text/css">
+        body {
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @@media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+     <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="~/">ROM Projetos</a>
+                <div class="nav-collapse collapse">
+                    <p class="navbar-text pull-right">
+                        @{
+                            var culture = new CultureInfo("pt-BR");
+                            DateTimeFormatInfo dtfi = culture.DateTimeFormat;
+
+                            int dia = DateTime.Now.Day;
+                            int ano = DateTime.Now.Year;
+                            string mes = culture.TextInfo.ToTitleCase(dtfi.GetMonthName(DateTime.Now.Month));
+                            string diasemana = culture.TextInfo.ToTitleCase(dtfi.GetDayName(DateTime.Now.DayOfWeek));
+                            string dataPorExtenso = diasemana + ", " + dia + " de " + mes + " de " + ano;
+                        }
+
+                        @dataPorExtenso
+                    </p>
+                    <ul class="nav">
+                        <li><a href="~/">Home</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">Atos normativos</li>
+                        <li><a href="#">Outras Opções</a></li>
+                    </ul>
+                </div>
+                <!--/.well -->
+            </div>
+            <!--/span-->
+            <div class="span9">
+                @RenderBody()
+            </div>
+            <!--/span-->
+        </div>
+        <!--/row-->
+
+        <hr>
+
+        <footer>
+            <p>&copy; Cleyton Ferrari @DateTime.Now.ToString("yyyy")</p>
+        </footer>
+
+    </div>
+    <!--/.fluid-container-->
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
