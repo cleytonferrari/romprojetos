@@ -13,7 +13,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/bootstrap")
-    
+
     <style type="text/css">
         body {
             padding-top: 80px;
@@ -35,7 +35,7 @@
     </style>
 </head>
 <body>
-     <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
                 <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -61,6 +61,7 @@
                     </p>
                     <ul class="nav">
                         <li><a href="~/">Home</a></li>
+                        <li><a href="@Url.Action("Index", "Projeto")">Projetos</a></li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->
