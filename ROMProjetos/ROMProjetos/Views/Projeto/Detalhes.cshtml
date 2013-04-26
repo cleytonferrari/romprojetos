@@ -1,0 +1,42 @@
+﻿@model ROMProjetos.Models.Projeto
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>@Model.Nome</h2>
+
+<fieldset>
+    <legend>Dados do projeto</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Descricao)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Descricao)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.DataInicio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DataInicio)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.DataFinal)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DataFinal)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Interessado)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Interessado)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Cancelar", "Index")
+</p>

@@ -33,5 +33,16 @@ namespace ROMProjetos.Controllers
             }
             return View(projeto);
         }
+
+        public ActionResult Detalhes(string id)
+        {
+            var projeto = new ProjetoAplicacao().BuscarPorId(id );
+            if (projeto == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(projeto);
+        }
     }
 }

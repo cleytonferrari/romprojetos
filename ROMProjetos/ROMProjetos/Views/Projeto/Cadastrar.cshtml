@@ -55,13 +55,10 @@
 
         <p>
             <input type="submit" value="Criar Projeto" />
+             @Html.ActionLink("Cancelar", "Index")
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Cancelar", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

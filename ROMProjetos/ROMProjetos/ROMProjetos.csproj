@@ -134,19 +134,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aplicacao\Base\Aplicacao.cs" />
+    <Compile Include="Aplicacao\ColaboradorAplicacao.cs" />
     <Compile Include="Aplicacao\ProjetoAplicacao.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ColaboradorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjetoController.cs" />
+    <Compile Include="Controllers\TarefaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Base\Entidade.cs" />
     <Compile Include="Models\Base\ObjetoRetorno.cs" />
     <Compile Include="Models\Base\VerificaErros.cs" />
+    <Compile Include="Models\Colaborador.cs" />
     <Compile Include="Models\Projeto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\Repositorio.cs" />
@@ -188,6 +192,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Projeto\Index.cshtml" />
     <Content Include="Views\Projeto\Cadastrar.cshtml" />
+    <Content Include="Views\Projeto\Detalhes.cshtml" />
+    <Content Include="Views\Colaborador\Index.cshtml" />
+    <Content Include="Views\Colaborador\Cadastrar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
