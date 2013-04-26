@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ROMProjetos.Models.Base;
 
@@ -6,6 +7,10 @@ namespace ROMProjetos.Models
 {
     public class Projeto : Entidade
     {
+        public Projeto()
+        {
+            Tarefas = new List<Tarefa>();
+        }
         
         [Display(Name = "Nome:")]
         [Required(ErrorMessage = "Preencha o nome do projeto")]
@@ -29,6 +34,8 @@ namespace ROMProjetos.Models
         public string Interessado { get; set; }
 
         public StatusProjeto Status { get; set; }
+
+        public List<Tarefa> Tarefas { get; set; }
     }
 
     public class StatusProjeto

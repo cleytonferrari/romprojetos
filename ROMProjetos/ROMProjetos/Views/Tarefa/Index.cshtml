@@ -1,0 +1,60 @@
+﻿@using ROMProjetos.Models
+@model IEnumerable<ROMProjetos.Models.Tarefa>
+
+@{
+    ViewBag.Title = "Index";
+    var projeto = ViewBag.projeto as Projeto;
+}
+
+<h2>@projeto.Nome</h2>
+
+<p>
+    @Html.ActionLink("Nova Tarefa", "CriarTarefa", new { idProjeto = projeto.Id })
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Peso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CriadaEm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EntregarAte)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Colaborador)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Peso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CriadaEm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EntregarAte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Colaborador.Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

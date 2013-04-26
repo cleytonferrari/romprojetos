@@ -29,27 +29,29 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataFinal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Interessado)
-        </td>
-        <td>
-            @Html.ActionLink("Detalhes", "Detalhes", new { id=item.Id }) |
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFinal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Interessado)
+            </td>
+            <td>
+                @Html.ActionLink("Detalhes", "Detalhes", new { id = item.Id }) |
+            <a href="@Url.Action("CriarTarefa", "Tarefa", new { idProjeto = item.Id })">Nova Tarefa</a>
+            </td>
+        </tr>
+    }
 
 </table>

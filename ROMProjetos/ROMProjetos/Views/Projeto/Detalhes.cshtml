@@ -38,5 +38,6 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Cancelar", "Index")
+    <a href="@Url.Action("Index", "Tarefa", new { idProjeto = Model.Id })">Listar Tarefas</a>
+    <a href="@Url.Action("CriarTarefa", "Tarefa", new { idProjeto = Model.Id })">Nova Tarefa</a>
 </p>
