@@ -151,6 +151,7 @@
     <Compile Include="Models\Base\ObjetoRetorno.cs" />
     <Compile Include="Models\Base\VerificaErros.cs" />
     <Compile Include="Models\Colaborador.cs" />
+    <Compile Include="Models\DadosEstaticos.cs" />
     <Compile Include="Models\Projeto.cs" />
     <Compile Include="Models\Tarefa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

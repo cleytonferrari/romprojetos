@@ -38,15 +38,8 @@
             @Html.LabelFor(model => model.Descricao)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Descricao)
+            @Html.TextAreaFor(model => model.Descricao)
             @Html.ValidationMessageFor(model => model.Descricao)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Colaborador)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("idColaborador", (SelectList)ViewBag.colaboradores)
         </div>
 
         <div class="editor-label">
@@ -65,9 +58,32 @@
             @Html.ValidationMessageFor(model => model.EntregarAte)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Prioridade)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Prioridade.Nome", (SelectList)ViewBag.prioridades)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TipoTarefa)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TipoTarefa.Nome", (SelectList)ViewBag.tipotarefas)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Colaborador)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("idColaborador", (SelectList)ViewBag.colaboradores, "Selecionar Colaborador")
+        </div>
+
+
         <p>
-            <input type="submit" value="Criar Tarefa" />
-            @Html.ActionLink("Cancelar", "Index", new { idProjeto = projeto.Id })
+            <input type="submit" value="Criar Tarefa" class="btn btn-primary" />
+            @Html.ActionLink("Cancelar", "Index", new { idProjeto = projeto.Id }, new { @Class = "btn" })
+
         </p>
     </fieldset>
 }

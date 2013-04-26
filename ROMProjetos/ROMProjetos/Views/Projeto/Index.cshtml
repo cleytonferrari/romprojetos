@@ -4,18 +4,15 @@
     ViewBag.Title = "Lista de Projetos";
 }
 
-<h2>Index</h2>
+<h2>Lista de Projetos</h2>
 
 <p>
-    @Html.ActionLink("Novo Projeto", "Cadastrar")
+    @Html.ActionLink("Novo Projeto", "Cadastrar", null, new { @Class = "btn btn-primary" })
 </p>
-<table>
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataInicio)
@@ -25,6 +22,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Interessado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
         </th>
         <th></th>
     </tr>
@@ -36,9 +36,6 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.DataInicio)
             </td>
             <td>
@@ -46,6 +43,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Interessado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Nome)
             </td>
             <td>
                 @Html.ActionLink("Detalhes", "Detalhes", new { id = item.Id }) |

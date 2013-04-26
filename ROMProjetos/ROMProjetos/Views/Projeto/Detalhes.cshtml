@@ -9,35 +9,35 @@
 <fieldset>
     <legend>Dados do projeto</legend>
 
-    <div class="display-label">
+    <div class="muted">
         @Html.DisplayNameFor(model => model.Descricao)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Descricao)
     </div>
 
-    <div class="display-label">
+    <div class="muted">
         @Html.DisplayNameFor(model => model.DataInicio)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.DataInicio)
     </div>
 
-    <div class="display-label">
+    <div class="muted">
         @Html.DisplayNameFor(model => model.DataFinal)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.DataFinal)
     </div>
 
-    <div class="display-label">
+    <div class="mute">
         @Html.DisplayNameFor(model => model.Interessado)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Interessado)
     </div>
 </fieldset>
-<p>
-    <a href="@Url.Action("Index", "Tarefa", new { idProjeto = Model.Id })">Listar Tarefas</a>
-    <a href="@Url.Action("CriarTarefa", "Tarefa", new { idProjeto = Model.Id })">Nova Tarefa</a>
-</p>
+<div class="form-actions">
+    <a href="@Url.Action("CriarTarefa", "Tarefa", new { idProjeto = Model.Id })" class="btn btn-primary">Nova Tarefa</a>
+    <a href="@Url.Action("Index", "Tarefa", new { idProjeto = Model.Id })" class="btn btn-success">Listar Tarefas</a>
+</div>

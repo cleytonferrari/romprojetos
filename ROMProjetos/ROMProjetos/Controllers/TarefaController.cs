@@ -33,6 +33,8 @@ namespace ROMProjetos.Controllers
             }
             ViewBag.projeto = projeto;
             ViewBag.colaboradores = new SelectList(new ColaboradorAplicacao().Buscar(new Colaborador()), "Id", "Nome");
+            ViewBag.prioridades = new SelectList(DadosEstaticos.PrioridadeTarefa, "Nome", "Nome");
+            ViewBag.tipotarefas = new SelectList(DadosEstaticos.TipoTarefa, "Nome", "Nome");
             return View();
         }
 
@@ -48,6 +50,7 @@ namespace ROMProjetos.Controllers
             if (ModelState.IsValid)
             {
                 tarefa.Colaborador = new ColaboradorAplicacao().BuscarPorId(idColaborador);
+                tarefa.Status = DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Nome == "Pendente");
                 projeto.Tarefas.Add(tarefa);
                 projetoAplicacao.Salvar(projeto);
                 return RedirectToAction("Index", new { idProjeto = idProjeto });
@@ -56,6 +59,8 @@ namespace ROMProjetos.Controllers
 
             ViewBag.projeto = projeto;
             ViewBag.colaboradores = new SelectList(new ColaboradorAplicacao().Buscar(new Colaborador()), "Id", "Nome");
+            ViewBag.prioridades = new SelectList(DadosEstaticos.PrioridadeTarefa, "Nome", "Nome");
+            ViewBag.tipotarefas = new SelectList(DadosEstaticos.TipoTarefa, "Nome", "Nome");
             return View(tarefa);
         }
 

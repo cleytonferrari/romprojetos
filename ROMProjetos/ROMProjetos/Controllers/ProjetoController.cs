@@ -28,6 +28,7 @@ namespace ROMProjetos.Controllers
         {
             if (ModelState.IsValid)
             {
+                projeto.Status = DadosEstaticos.StatusProjeto.FirstOrDefault(x => x.Nome == "Em Execução");
                 new ProjetoAplicacao().Salvar(projeto);
                 return RedirectToAction("Index");
             }
@@ -36,7 +37,7 @@ namespace ROMProjetos.Controllers
 
         public ActionResult Detalhes(string id)
         {
-            var projeto = new ProjetoAplicacao().BuscarPorId(id );
+            var projeto = new ProjetoAplicacao().BuscarPorId(id);
             if (projeto == null)
             {
                 return HttpNotFound();

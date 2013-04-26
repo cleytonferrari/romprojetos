@@ -7,9 +7,9 @@
 <h2>Calaboradores</h2>
 
 <p>
-    @Html.ActionLink("Novo Calaborador", "Cadastrar")
+    @Html.ActionLink("Novo Calaborador", "Cadastrar", null, new { @Class = "btn btn-primary" })
 </p>
-<table>
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
