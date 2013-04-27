@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.IdGenerators;
@@ -40,7 +42,7 @@ namespace ROMProjetos.Controllers
             return View();
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult CriarTarefa(Tarefa tarefa, string idProjeto, string idColaborador)
         {
             var projetoAplicacao = new ProjetoAplicacao();
@@ -52,7 +54,7 @@ namespace ROMProjetos.Controllers
             if (ModelState.IsValid)
             {
                 tarefa.Colaborador = new ColaboradorAplicacao().BuscarPorId(idColaborador);
-                tarefa.Status = DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Nome == "Pendente");
+                tarefa.Status = DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Chave == "aberta");
                 tarefa.Id = ObjectId.GenerateNewId().ToString(); //TODO: criar uma convesao no mongo para gerar isso automaticamente
 
                 projeto.Tarefas.Add(tarefa);
@@ -84,6 +86,31 @@ namespace ROMProjetos.Controllers
 
             ViewBag.projeto = projeto;
             return View(tarefa);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public JsonResult AlterarStatus(string id, string status)
+        {
+            var projetoAplicacao = new ProjetoAplicacao();
+
+            var projeto = projetoAplicacao.BuscarPorTarefaId(id);
+
+            var tarefa = projeto.Tarefas.FirstOrDefault(x => x.Id == id);
+
+            if (tarefa == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            var statusBanco = DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Chave == status.ToLower());
+            if (statusBanco == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+            tarefa.Status = statusBanco;
+            projetoAplicacao.Salvar(projeto);
+
+            return Json(tarefa, JsonRequestBehavior.AllowGet);
         }
     }
 }

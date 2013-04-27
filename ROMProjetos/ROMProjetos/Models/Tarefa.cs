@@ -58,6 +58,7 @@ namespace ROMProjetos.Models
     public class StatusTarefa
     {
         public string Nome { get; set; }
+        public string Chave { get; set; }
     }
 
     public class LogTarefa

@@ -24,10 +24,10 @@ namespace ROMProjetos.Models
             {
                 return new Collection<StatusTarefa>
                            {
-                               new StatusTarefa { Nome = "Pendente"},
-                               new StatusTarefa { Nome = "Sendo Feita"},
-                               new StatusTarefa { Nome = "Concluída"},
-                               new StatusTarefa { Nome = "Cancelada"}
+                               new StatusTarefa { Nome = "Aberta", Chave = "aberta"},
+                               new StatusTarefa { Nome = "Sendo Feita", Chave = "sendofeita"},
+                               new StatusTarefa { Nome = "Concluída", Chave = "concluida"},
+                               new StatusTarefa { Nome = "Cancelada", Chave = "cancelada"}
                            };
             }
         }

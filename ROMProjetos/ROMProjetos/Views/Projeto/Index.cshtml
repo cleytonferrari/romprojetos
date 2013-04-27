@@ -49,7 +49,8 @@
             </td>
             <td>
                 @Html.ActionLink("Detalhes", "Detalhes", new { id = item.Id }) |
-            <a href="@Url.Action("CriarTarefa", "Tarefa", new { idProjeto = item.Id })">Nova Tarefa</a>
+                <a href="@Url.Action("CriarTarefa", "Tarefa", new { idProjeto = item.Id })">Nova Tarefa</a> |
+                <a href="@Url.Action("Index", "Tarefa", new { idProjeto = item.Id })">Tarefas</a>
             </td>
         </tr>
     }
