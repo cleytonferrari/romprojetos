@@ -4,7 +4,7 @@
     ViewBag.Title = "Detalhes";
 }
 
-<h2>@Model.Nome</h2>
+<h2>@Model.Nome <small>@Model.Interessado</small></h2>
 
 <fieldset>
     <legend>Dados do projeto</legend>
@@ -30,7 +30,7 @@
         @Html.DisplayFor(model => model.DataFinal)
     </div>
 
-    <div class="mute">
+    <div class="muted">
         @Html.DisplayNameFor(model => model.Interessado)
     </div>
     <div class="display-field">
@@ -38,6 +38,6 @@
     </div>
 </fieldset>
 <div class="form-actions">
-    <a href="@Url.Action("CriarTarefa", "Tarefa", new { idProjeto = Model.Id })" class="btn btn-primary">Nova Tarefa</a>
-    <a href="@Url.Action("Index", "Tarefa", new { idProjeto = Model.Id })" class="btn btn-success">Listar Tarefas</a>
+    <a href="@Url.Action("CriarTarefa", "Tarefa", new { idProjeto = Model.Id })" class="btn btn-primary btn-small">Nova Tarefa</a>
+    <a href="@Url.Action("Index", "Tarefa", new { idProjeto = Model.Id })" class="btn btn-success btn-small">Listar Tarefas</a>
 </div>

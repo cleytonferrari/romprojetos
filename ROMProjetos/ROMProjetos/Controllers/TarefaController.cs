@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.IdGenerators;
 using ROMProjetos.Aplicacao;
 using ROMProjetos.Models;
 
@@ -51,6 +53,8 @@ namespace ROMProjetos.Controllers
             {
                 tarefa.Colaborador = new ColaboradorAplicacao().BuscarPorId(idColaborador);
                 tarefa.Status = DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Nome == "Pendente");
+                tarefa.Id = ObjectId.GenerateNewId().ToString(); //TODO: criar uma convesao no mongo para gerar isso automaticamente
+
                 projeto.Tarefas.Add(tarefa);
                 projetoAplicacao.Salvar(projeto);
                 return RedirectToAction("Index", new { idProjeto = idProjeto });
@@ -64,5 +68,22 @@ namespace ROMProjetos.Controllers
             return View(tarefa);
         }
 
+        public ActionResult Detalhes(string id)
+        {
+            var projeto = new ProjetoAplicacao().BuscarPorTarefaId(id);
+            if (projeto == null)
+            {
+                return HttpNotFound();
+            }
+
+            var tarefa = projeto.Tarefas.FirstOrDefault(x => x.Id == id);
+            if (tarefa == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.projeto = projeto;
+            return View(tarefa);
+        }
     }
 }

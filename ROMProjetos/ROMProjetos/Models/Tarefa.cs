@@ -33,11 +33,11 @@ namespace ROMProjetos.Models
         public string Descricao { get; set; }
 
         [Display(Name = "Criada em")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CriadaEm { get; set; }
 
         [Display(Name = "Entregar até")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime EntregarAte { get; set; }
 
         [Display(Name = "Prioridade")]

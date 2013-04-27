@@ -199,6 +199,7 @@
     <Content Include="Views\Colaborador\Cadastrar.cshtml" />
     <Content Include="Views\Tarefa\Index.cshtml" />
     <Content Include="Views\Tarefa\CriarTarefa.cshtml" />
+    <Content Include="Views\Tarefa\Detalhes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
