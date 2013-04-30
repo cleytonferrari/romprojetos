@@ -200,6 +200,7 @@
     <Content Include="Views\Tarefa\Index.cshtml" />
     <Content Include="Views\Tarefa\CriarTarefa.cshtml" />
     <Content Include="Views\Tarefa\Detalhes.cshtml" />
+    <Content Include="Views\Colaborador\Detalhes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

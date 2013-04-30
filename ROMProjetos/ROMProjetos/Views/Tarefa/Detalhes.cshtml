@@ -8,87 +8,96 @@
 
 <h2>@projeto.Nome <small>@projeto.Interessado</small></h2>
 
-<fieldset>
-    <legend>Tarefa</legend>
+<h3 style="margin-bottom: -30px">@Html.DisplayFor(model => model.Titulo)</h3>
+<hr />
+<div class="container-fluid">
 
-    <div class="muted">
-        @Html.DisplayNameFor(model => model.Titulo)
+    <div class="span6">
+        <div style="white-space: pre-line">
+            @Html.DisplayFor(model => model.Descricao)
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Titulo)
-    </div>
+    <div class="span6">
 
-    <div class="muted">
-        @Html.DisplayNameFor(model => model.Peso)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Peso)
-    </div>
+        <div class="container-fluid">
 
-    <div class="muted">
-        @Html.DisplayNameFor(model => model.Descricao)
-    </div>
-    <div class="display-field" style="white-space: pre-line">
-        @Html.DisplayFor(model => model.Descricao)
-    </div>
+            @Ajax.ActionLink("Concluir", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn btn-success btn-small" })
+            @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn btn-danger btn-small" })
+            
+            <div class="btn-group">
+                <a class="btn btn-primary dropdown-toggle btn-small" data-toggle="dropdown" href="#">Workflow<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        @Ajax.ActionLink("Aberta", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "aberta" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Sendo Feita", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "sendofeita" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Concluída", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                    </li>
+                </ul>
+            </div>
+            
+            <a href="@Url.Action("Index", "Tarefa", new { idProjeto = projeto.Id })" class="btn btn-small">Lista de Tarefas</a>
 
-    <div class="muted">
-        @Html.DisplayNameFor(model => model.CriadaEm)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CriadaEm)
-    </div>
+            <div class="muted">
+                @Html.DisplayNameFor(model => model.Peso)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Peso)
+            </div>
 
-    <div class="muted">
-        @Html.DisplayNameFor(model => model.EntregarAte)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EntregarAte)
-    </div>
 
-    <div class="muted">
-        @Html.DisplayNameFor(model => model.Prioridade)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Prioridade.Nome)
-    </div>
+            <div class="muted">
+                @Html.DisplayNameFor(model => model.CriadaEm)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CriadaEm)
+            </div>
 
-    <div class="muted">
-        @Html.DisplayNameFor(model => model.TipoTarefa)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TipoTarefa.Nome)
-    </div>
 
-    <div class="muted">
-        @Html.DisplayNameFor(model => model.Status)
-    </div>
-    <div class="display-field" id="status">
-        @Html.DisplayFor(model => model.Status.Nome)
-    </div>
-</fieldset>
-<div class="form-actions">
-    <a href="@Url.Action("Index", "Tarefa", new { idProjeto = projeto.Id })" class="btn btn-success btn-small">Lista de Tarefas</a>
 
-    <div class="btn-group">
-        <a class="btn btn-primary dropdown-toggle btn-small" data-toggle="dropdown" href="#">Workflow<span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li>
-                @Ajax.ActionLink("Aberta", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "aberta" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
-            </li>
-            <li>
-                @Ajax.ActionLink("Sendo Feita", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "sendofeita" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
-            </li>
-            <li>
-                @Ajax.ActionLink("Concluída", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
-            </li>
-            <li>
-                @Ajax.ActionLink("Cancelada", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
-            </li>
-        </ul>
+            <div class="muted">
+                @Html.DisplayNameFor(model => model.EntregarAte)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.EntregarAte)
+            </div>
+
+
+            <div class="muted">
+                @Html.DisplayNameFor(model => model.Prioridade)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Prioridade.Nome)
+            </div>
+
+            <div class="muted">
+                @Html.DisplayNameFor(model => model.TipoTarefa)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.TipoTarefa.Nome)
+            </div>
+
+            <div class="muted">
+                @Html.DisplayNameFor(model => model.Status)
+            </div>
+            <div class="display-field" id="status">
+                @Html.DisplayFor(model => model.Status.Nome)
+            </div>
+        </div>
+        
     </div>
 </div>
+
+
+
+
 
 <script type="text/javascript">
 

@@ -17,19 +17,15 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Nome)
+            <a href="@Url.Action("Detalhes","Colaborador",new{id=item.Id})">@item.Nome</a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Editar", new { id=item.Id })
         </td>
     </tr>
 }
