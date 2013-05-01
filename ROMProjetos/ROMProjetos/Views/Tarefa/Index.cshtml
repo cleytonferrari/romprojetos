@@ -1,4 +1,5 @@
-﻿@using ROMProjetos.Models
+﻿@using ROMProjetos.Helpers
+@using ROMProjetos.Models
 @model IEnumerable<ROMProjetos.Models.Tarefa>
 
 @{
@@ -7,7 +8,10 @@
 }
 
 <h2>@projeto.Nome <small>@projeto.Interessado</small></h2>
+
 @Html.ActionLink("Nova Tarefa", "CriarTarefa", new { idProjeto = projeto.Id }, new { @Class = "btn btn-primary btn-small" })
+
+@Html.Message(MessageType.Success, TempData["MensagemSucesso"])
 
 <div class="btn-group">
     

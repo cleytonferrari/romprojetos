@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ROMProjetos.Models.Projeto>
+﻿@using ROMProjetos.Helpers
+@model IEnumerable<ROMProjetos.Models.Projeto>
 
 @{
     ViewBag.Title = "Lista de Projetos";
@@ -6,9 +7,10 @@
 
 <h2>Lista de Projetos <small>seus projetos</small></h2>
 
-<p>
-    @Html.ActionLink("Novo Projeto", "Cadastrar", null, new { @Class = "btn btn-primary btn-small" })
-</p>
+@Html.ActionLink("Novo Projeto", "Cadastrar", null, new { @Class = "btn btn-primary btn-small" })
+
+@Html.Message(MessageType.Success, TempData["MensagemSucesso"])
+
 <table class="table table-striped table-condensed">
     <tr>
         <th>

@@ -63,6 +63,7 @@ namespace ROMProjetos.Controllers
 
                 projeto.Tarefas.Add(tarefa);
                 projetoAplicacao.Salvar(projeto);
+                TempData["MensagemSucesso"] = "Registro salvo com sucesso";
                 return RedirectToAction("Index", new { idProjeto = idProjeto });
             }
 

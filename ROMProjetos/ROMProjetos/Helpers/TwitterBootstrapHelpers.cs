@@ -22,7 +22,7 @@ namespace ROMProjetos.Helpers
             if (string.IsNullOrEmpty(text)) return new MvcHtmlString(string.Empty);
 
             var message = new StringBuilder();
-            message.Append(string.Format("<div class=\"alert alert-{0}\">{1}</div>", type.ToString().ToLower(), text));
+            message.Append(string.Format("<div class=\"alert alert-{0}\" style=\"margin:10px 0px\">{1}</div>", type.ToString().ToLower(), text));
             return new MvcHtmlString(message.ToString());
         }
     }

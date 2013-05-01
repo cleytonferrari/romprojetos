@@ -30,6 +30,7 @@ namespace ROMProjetos.Controllers
             {
                 projeto.Status = DadosEstaticos.StatusProjeto.FirstOrDefault(x => x.Nome == "Em Execução");
                 new ProjetoAplicacao().Salvar(projeto);
+                TempData["MensagemSucesso"] = "Registro salvo com sucesso";
                 return RedirectToAction("Index");
             }
             return View(projeto);
