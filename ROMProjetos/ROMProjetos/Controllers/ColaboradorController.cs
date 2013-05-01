@@ -29,6 +29,7 @@ namespace ROMProjetos.Controllers
             if (ModelState.IsValid)
             {
                 new ColaboradorAplicacao().Salvar(colaborador);
+                TempData["MensagemSucesso"] = "Registro salvo com sucesso";
                 return RedirectToAction("Index");
             }
             return View(colaborador);
