@@ -17,15 +17,19 @@ namespace ROMProjetos.Controllers
         //
         // GET: /Tarefa/
 
-        public ActionResult Index(string idProjeto)
+        public ActionResult Index(string idProjeto, string status = "")
         {
             var projeto = new ProjetoAplicacao().BuscarPorId(idProjeto);
             if (projeto == null)
             {
                 return HttpNotFound();
             }
+
+            if (!string.IsNullOrEmpty(status))
+                projeto.Tarefas.RemoveAll(x => x.Status.Chave != status);
+
             ViewBag.projeto = projeto;
-            return View(projeto.Tarefas);
+            return View(projeto.Tarefas.OrderBy(x => x.EntregarAte));
         }
 
         public ActionResult CriarTarefa(string idProjeto)

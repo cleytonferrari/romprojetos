@@ -8,7 +8,7 @@
 @foreach (var projetoDoColaborador in Model)
 {
     
-    <h3 style="margin-bottom: -15px;">@projetoDoColaborador.Colaborador.Nome</h3>
+    <h3 style="margin-bottom: -15px;">@projetoDoColaborador.Colaborador.Nome <a href="@Url.Action("Detalhes","Colaborador",new{projetoDoColaborador.Colaborador.Id})">»</a></h3>
        
     <table class="table table-striped table-condensed">
         <tr>
