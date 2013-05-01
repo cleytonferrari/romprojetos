@@ -147,6 +147,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\TwitterBootstrapHelpers.cs" />
     <Compile Include="Models\Base\Entidade.cs" />
     <Compile Include="Models\Base\ObjetoRetorno.cs" />
     <Compile Include="Models\Base\VerificaErros.cs" />
