@@ -1,6 +1,8 @@
 ﻿@using System.Globalization
+@using ROMProjetos.Aplicacao
+@using ROMProjetos.Models
 @{
-    
+    var projetos = new ProjetoAplicacao().Buscar(new Projeto()).OrderBy(x => x.DataFinal).Take(5).OrderBy(x => x.Nome);
 }
 <!DOCTYPE html>
 <html>
@@ -46,8 +48,20 @@
                 <a class="brand" href="~/">ROM Projetos</a>
                 <div class="nav-collapse">
                     <ul class="nav">
-                        <li><a href="~/">Home</a></li>
-                        <li><a href="@Url.Action("Index", "Projeto")">Projetos</a></li>
+                        <li class="dropdown" id="menuProjeto">
+                            <a href="#menuProjeto" class="dropdown-toggle" data-toggle="dropdown">Projetos</a>
+                            <ul class="dropdown-menu">
+                                @foreach (var projeto in projetos)
+                                {
+                                    <li><a href="@Url.Action("Index", "Tarefa", new { idProjeto = projeto.Id })">@projeto.Nome</a></li>
+                                }
+
+
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("Index", "Projeto")">Todos</a></li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
                 <ul class="nav pull-right">

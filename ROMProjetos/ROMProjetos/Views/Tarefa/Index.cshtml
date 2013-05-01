@@ -71,7 +71,14 @@
                 @Html.ActionLink(item.Titulo, "Detalhes", new { id = item.Id })
             </td>
             <td>
-                <a href="@Url.Action("Detalhes", "Colaborador", new { id = item.Colaborador.Id })">@item.Colaborador.Nome</a>
+                @if (item.Colaborador != null)
+                {
+                    <a href="@Url.Action("Detalhes", "Colaborador", new {id = item.Colaborador.Id})">@item.Colaborador.Nome</a>
+                }
+                else
+                {
+                    @:Não Atribuido
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Peso)
