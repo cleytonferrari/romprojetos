@@ -12,7 +12,7 @@ namespace ROMProjetos.Models
 
         [Display(Name = "Email:")]
         [Required(ErrorMessage = "Preencha o email do colaborador")]
-        //TODO: Validar email
+        [RegularExpression(@"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", ErrorMessage = "Preencha com um email válido")]
         public string Email { get; set; }
     }
 }

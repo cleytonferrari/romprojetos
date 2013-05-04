@@ -8,7 +8,6 @@ namespace ROMProjetos.Aplicacao
 {
     public class ProjetoAplicacao : Base.Aplicacao<Projeto>
     {
-        
         public virtual Projeto BuscarPorTarefaId(string id)
         {
             var query = Query.EQ("Tarefas._id", id);

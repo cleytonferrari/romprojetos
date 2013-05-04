@@ -34,15 +34,13 @@ namespace ROMProjetos.Aplicacao.Base
             repositorio.Collection.Remove(Query.EQ("_id", new ObjectId(id)));
         }
 
-        public virtual ObjetoRetorno<T> Salvar(T entidade)
+        public virtual T Salvar(T entidade)
         {
-            var retorno = entidade.Verifica<T>();
-            if (retorno.TemErro)
-            {
-                return retorno;
-            }
+            if (!entidade.Validar())
+                return entidade;
+
             repositorio.Collection.Save(entidade);
-            return retorno.SetRetorno(entidade);
+            return entidade;
         }
 
         private void MontaBusca(object entidade, ref IQueryable<T> retorno, string pai = "")
