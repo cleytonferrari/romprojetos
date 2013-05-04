@@ -3,12 +3,35 @@
     ViewBag.Title = "Atividades e Colaboradores";
 }
 
-<h2>Atividades e Colaboradores</h2>
+@section titulo{
+    <!-- Page heading -->
+    <div class="page-head">
+        <!-- Page heading -->
+        <h2 class="pull-left">Atividades e Colaboradores 
+          <!-- page meta -->
+            <span class="page-meta">Breve resumo dos seus projetos</span>
+        </h2>
+
+
+        <!-- Breadcrumb -->
+        <div class="bread-crumb pull-right">
+            <a href="~/"><i class="icon-home"></i>Home</a>
+            <!-- Divider -->
+            <span class="divider">/</span>
+            <a href="#" class="bread-current">Dashboard</a>
+        </div>
+
+        <div class="clearfix"></div>
+
+    </div>
+    <!-- Page heading ends -->
+}
+
 
 @foreach (var projetoDoColaborador in Model)
 {
     
-    <h3 style="margin-bottom: -15px;">@projetoDoColaborador.Colaborador.Nome <a href="@Url.Action("Detalhes","Colaborador",new{projetoDoColaborador.Colaborador.Id})">»</a></h3>
+    <h3 style="margin-bottom: -15px;">@projetoDoColaborador.Colaborador.Nome <a href="@Url.Action("Detalhes", "Colaborador", new { projetoDoColaborador.Colaborador.Id })">»</a></h3>
        
     <table class="table table-striped table-condensed">
         <tr>
@@ -25,9 +48,9 @@
             foreach (var tarefa in projeto.Tarefas)
             {
             <tr>
-                <td><a href="@Url.Action("Detalhes","Projeto",new{id= projeto.Id})">@projeto.Nome</a></td>
-                <td><a href="@Url.Action("Detalhes","Tarefa", new{id=tarefa.Id})">@tarefa.Titulo</a></td>
-                
+                <td><a href="@Url.Action("Detalhes", "Projeto", new { id = projeto.Id })">@projeto.Nome</a></td>
+                <td><a href="@Url.Action("Detalhes", "Tarefa", new { id = tarefa.Id })">@tarefa.Titulo</a></td>
+
                 <td>@tarefa.CriadaEm.ToShortDateString()</td>
 
                 @{
