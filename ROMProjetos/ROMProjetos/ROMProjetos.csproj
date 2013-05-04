@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -159,15 +161,118 @@
     <Compile Include="Repositorio\Repositorio.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
-    <Content Include="Content\metro-bootstrap.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-toggle-buttons.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font\fontawesome-webfont.svg" />
+    <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\images\animated-overlay.gif" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\img\cleditor\buttons.gif" />
+    <Content Include="Content\img\cleditor\toolbar.gif" />
+    <Content Include="Content\img\delete.gif" />
+    <Content Include="Content\img\favicon\favicon.png" />
+    <Content Include="Content\img\gritter\gritter.png" />
+    <Content Include="Content\img\gritter\ie-spacer.gif" />
+    <Content Include="Content\img\icons\android.png" />
+    <Content Include="Content\img\icons\chrome.png" />
+    <Content Include="Content\img\icons\firefox.png" />
+    <Content Include="Content\img\icons\ie.png" />
+    <Content Include="Content\img\icons\ios.png" />
+    <Content Include="Content\img\icons\linux.png" />
+    <Content Include="Content\img\icons\mac.png" />
+    <Content Include="Content\img\icons\metro.png" />
+    <Content Include="Content\img\icons\opera.png" />
+    <Content Include="Content\img\icons\safari.png" />
+    <Content Include="Content\img\icons\windows.png" />
+    <Content Include="Content\img\prettyPhoto\dark_rounded\btnNext.png" />
+    <Content Include="Content\img\prettyPhoto\dark_rounded\btnPrevious.png" />
+    <Content Include="Content\img\prettyPhoto\dark_rounded\contentPattern.png" />
+    <Content Include="Content\img\prettyPhoto\dark_rounded\default_thumbnail.gif" />
+    <Content Include="Content\img\prettyPhoto\dark_rounded\loader.gif" />
+    <Content Include="Content\img\prettyPhoto\dark_rounded\sprite.png" />
+    <Content Include="Content\img\prettyPhoto\dark_square\btnNext.png" />
+    <Content Include="Content\img\prettyPhoto\dark_square\btnPrevious.png" />
+    <Content Include="Content\img\prettyPhoto\dark_square\contentPattern.png" />
+    <Content Include="Content\img\prettyPhoto\dark_square\default_thumbnail.gif" />
+    <Content Include="Content\img\prettyPhoto\dark_square\loader.gif" />
+    <Content Include="Content\img\prettyPhoto\dark_square\sprite.png" />
+    <Content Include="Content\img\prettyPhoto\default\default_thumb.png" />
+    <Content Include="Content\img\prettyPhoto\default\loader.gif" />
+    <Content Include="Content\img\prettyPhoto\default\sprite.png" />
+    <Content Include="Content\img\prettyPhoto\default\sprite_next.png" />
+    <Content Include="Content\img\prettyPhoto\default\sprite_prev.png" />
+    <Content Include="Content\img\prettyPhoto\default\sprite_x.png" />
+    <Content Include="Content\img\prettyPhoto\default\sprite_y.png" />
+    <Content Include="Content\img\prettyPhoto\facebook\btnNext.png" />
+    <Content Include="Content\img\prettyPhoto\facebook\btnPrevious.png" />
+    <Content Include="Content\img\prettyPhoto\facebook\contentPatternBottom.png" />
+    <Content Include="Content\img\prettyPhoto\facebook\contentPatternLeft.png" />
+    <Content Include="Content\img\prettyPhoto\facebook\contentPatternRight.png" />
+    <Content Include="Content\img\prettyPhoto\facebook\contentPatternTop.png" />
+    <Content Include="Content\img\prettyPhoto\facebook\default_thumbnail.gif" />
+    <Content Include="Content\img\prettyPhoto\facebook\loader.gif" />
+    <Content Include="Content\img\prettyPhoto\facebook\sprite.png" />
+    <Content Include="Content\img\prettyPhoto\light_rounded\btnNext.png" />
+    <Content Include="Content\img\prettyPhoto\light_rounded\btnPrevious.png" />
+    <Content Include="Content\img\prettyPhoto\light_rounded\default_thumbnail.gif" />
+    <Content Include="Content\img\prettyPhoto\light_rounded\loader.gif" />
+    <Content Include="Content\img\prettyPhoto\light_rounded\sprite.png" />
+    <Content Include="Content\img\prettyPhoto\light_square\btnNext.png" />
+    <Content Include="Content\img\prettyPhoto\light_square\btnPrevious.png" />
+    <Content Include="Content\img\prettyPhoto\light_square\default_thumbnail.gif" />
+    <Content Include="Content\img\prettyPhoto\light_square\loader.gif" />
+    <Content Include="Content\img\prettyPhoto\light_square\sprite.png" />
+    <Content Include="Content\img\star.gif" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery.cleditor.css" />
+    <Content Include="Content\jquery.gritter.css" />
+    <Content Include="Content\prettyPhoto.css" />
+    <Content Include="Content\rateit.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\widgets.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\font\fontawesome-webfont.eot" />
+    <Content Include="Content\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\font\fontawesome-webfont.woff" />
+    <Content Include="Content\font\FontAwesome.otf" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
+    <Content Include="Scripts\charts.js" />
+    <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\excanvas.min.js" />
+    <Content Include="Scripts\filter.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
+    <Content Include="Scripts\html5shim.js" />
     <Content Include="Scripts\jquery-2.0.0.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.2.custom.min.js" />
+    <Content Include="Scripts\jquery.cleditor.min.js" />
+    <Content Include="Scripts\jquery.flot.js" />
+    <Content Include="Scripts\jquery.flot.pie.js" />
+    <Content Include="Scripts\jquery.flot.resize.js" />
+    <Content Include="Scripts\jquery.flot.stack.js" />
+    <Content Include="Scripts\jquery.gritter.min.js" />
+    <Content Include="Scripts\jquery.prettyPhoto.js" />
+    <Content Include="Scripts\jquery.rateit.min.js" />
+    <Content Include="Scripts\jquery.toggle.buttons.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery-2.0.0.min.map" />
@@ -178,9 +283,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.1.debug.js" />
     <Content Include="Scripts\knockout-2.2.1.js" />
-    <Content Include="Scripts\less.min.js" />
     <Content Include="Scripts\methods_pt.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\sparklines.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -238,6 +343,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
