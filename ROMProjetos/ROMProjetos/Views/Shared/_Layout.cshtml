@@ -4,102 +4,381 @@
 @{
     var projetos = new ProjetoAplicacao().Buscar(new Projeto()).OrderBy(x => x.DataFinal).Take(5).OrderBy(x => x.Nome);
 }
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/bootstrap/css")
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/bootstrap")
 
-    <style type="text/css">
-        body {
-            padding-top: 80px;
-            padding-bottom: 40px;
-        }
+    <!-- Stylesheets -->
+    <link href="~/Content/bootstrap.css" rel="stylesheet">
+    <!-- Font awesome icon -->
+    <link rel="stylesheet" href="~/Content/font-awesome.css">
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="~/Content/jquery-ui.css">
+    <!-- Calendar -->
+    <link rel="stylesheet" href="~/Content/fullcalendar.css">
+    <!-- prettyPhoto -->
+    <link rel="stylesheet" href="~/Content/prettyPhoto.css">
+    <!-- Star rating -->
+    <link rel="stylesheet" href="~/Content/rateit.css">
+    <!-- Date picker -->
+    <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.min.css">
+    <!-- jQuery Gritter -->
+    <link rel="stylesheet" href="~/Content/jquery.gritter.css">
+    <!-- CLEditor -->
+    <link rel="stylesheet" href="~/Content/jquery.cleditor.css">
+    <!-- Bootstrap toggle -->
+    <link rel="stylesheet" href="~/Content/bootstrap-toggle-buttons.css">
+    <!-- Main stylesheet -->
+    <link href="~/Content/style.css" rel="stylesheet">
+    <!-- Widgets stylesheet -->
+    <link href="~/Content/widgets.css" rel="stylesheet">
+    <!-- Responsive style (from Bootstrap) -->
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet">
 
-        .sidebar-nav {
-            padding: 9px 0;
-        }
+    <!-- HTML5 Support for IE -->
+    <!--[if lt IE 9]>
+  <script src="~/Scripts/html5shim.js"></script>
+  <![endif]-->
 
-        @@media (max-width: 980px) {
-            /* Enable use of floated navbar text */
-            .navbar-text.pull-right {
-                float: none;
-                padding-left: 5px;
-                padding-right: 5px;
-            }
-        }
-    </style>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/Content/img/favicon/favicon.png">
 </head>
+
 <body>
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top navbar-inverse">
         <div class="navbar-inner">
-            <div class="container-fluid">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <div class="container">
+                <!-- Menu button for smallar screens -->
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a class="brand" href="~/">ROM Projetos</a>
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="dropdown" id="menuProjeto">
-                            <a href="#menuProjeto" class="dropdown-toggle" data-toggle="dropdown">Projetos</a>
+                </a>
+                <!-- Site name for smallar screens -->
+                <a href="~/" class="brand">ROM <span class="bold">Projetos</span></a>
+
+                <!-- Navigation starts -->
+                <div class="nav-collapse collapse">
+
+                    <!-- Links -->
+                    <ul class="nav pull-right">
+                        <li class="dropdown pull-right">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <img src="img/user.jpg" alt="" class="nav-user-pic" />Admin <b class="caret"></b>
+                            </a>
+
+                            <!-- Dropdown menu -->
                             <ul class="dropdown-menu">
-                                @foreach (var projeto in projetos)
-                                {
-                                    <li><a href="@Url.Action("Index", "Tarefa", new { idProjeto = projeto.Id })">@projeto.Nome</a></li>
-                                }
-
-
-                                <li class="divider"></li>
-                                <li><a href="@Url.Action("Index", "Projeto")">Todos</a></li>
+                                <li><a href="@Url.Action("Index", "Colaborador")"><i class="icon-user"></i>Colaborador</a></li>
+                                <li><a href="#"><i class="icon-user"></i>Profile</a></li>
+                                <li><a href="#"><i class="icon-cogs"></i>Settings</a></li>
+                                <li><a href="login.html"><i class="icon-off"></i>Logout</a></li>
                             </ul>
                         </li>
 
                     </ul>
+
+                    <!-- Notifications -->
+                    <ul class="nav pull-right">
+
+                        <!-- Comment button with number of latest comments count -->
+                        <li class="dropdown dropdown-big">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <i class="icon-comments"></i>Chats <span class="badge badge-info">6</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <!-- Heading - h5 -->
+                                    <h5><i class="icon-comments"></i>Chats</h5>
+                                    <!-- Use hr tag to add border -->
+                                    <hr />
+                                </li>
+                                <li>
+                                    <!-- List item heading h6 -->
+                                    <a href="#">Hi :)</a> <span class="label label-warning pull-right">10:42</span>
+                                    <div class="clearfix"></div>
+                                    <hr />
+                                </li>
+                                <li>
+                                    <a href="#">How are you?</a> <span class="label label-warning pull-right">20:42</span>
+                                    <div class="clearfix"></div>
+                                    <hr />
+                                </li>
+                                <li>
+                                    <a href="#">What are you doing?</a> <span class="label label-warning pull-right">14:42</span>
+                                    <div class="clearfix"></div>
+                                    <hr />
+                                </li>
+                                <li>
+                                    <div class="drop-foot">
+                                        <a href="#">View All</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Message button with number of latest messages count-->
+                        <li class="dropdown dropdown-big">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <i class="icon-envelope-alt"></i>Projetos <span class="badge badge-important">6</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <!-- Heading - h5 -->
+                                    <h5><i class="icon-envelope-alt"></i>Projetos</h5>
+                                    <!-- Use hr tag to add border -->
+                                    <hr />
+                                </li>
+
+                                @foreach (var projeto in projetos)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index", "Tarefa", new { idProjeto = projeto.Id })">@projeto.Nome</a>
+                                        <p>@projeto.Interessado</p>
+                                        <hr />
+                                    </li>
+                                }
+                                <li>
+                                    <div class="drop-foot">
+                                        <a href="@Url.Action("Index", "Projeto")">Todos</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Members button with number of latest members count -->
+                        <li class="dropdown dropdown-big">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <i class="icon-user"></i>Users <span class="badge badge-success">6</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <!-- Heading - h5 -->
+                                    <h5><i class="icon-user"></i>Users</h5>
+                                    <!-- Use hr tag to add border -->
+                                    <hr />
+                                </li>
+                                <li>
+                                    <!-- List item heading h6-->
+                                    <a href="#">Ravi Kumar</a> <span class="label label-warning pull-right">Free</span>
+                                    <div class="clearfix"></div>
+                                    <hr />
+                                </li>
+                                <li>
+                                    <a href="#">Balaji</a> <span class="label label-important pull-right">Premium</span>
+                                    <div class="clearfix"></div>
+                                    <hr />
+                                </li>
+                                <li>
+                                    <a href="#">Kumarasamy</a> <span class="label label-warning pull-right">Free</span>
+                                    <div class="clearfix"></div>
+                                    <hr />
+                                </li>
+                                <li>
+                                    <div class="drop-foot">
+                                        <a href="#">View All</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
                 </div>
-                <ul class="nav pull-right">
-                    <!-- user-menu dropdown -->
-                    <li class="dropdown" id="user-menu">
-                        <a href="#user-menu" class="dropdown-toggle" data-toggle="dropdown">Configurações
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-header">Configurações</li>
-                            <li><a href="@Url.Action("Index", "Colaborador")">Colaborador</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Sair</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <!--/.nav-collapse -->
+
             </div>
         </div>
     </div>
 
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <!--/span-->
-            <div class="span12">
-                @RenderBody()
-            </div>
-            <!--/span-->
-        </div>
-        <!--/row-->
 
-        <hr>
+    @RenderBody()
 
-        <footer>
-            <p>&copy; Cleyton Ferrari @DateTime.Now.ToString("yyyy")</p>
-        </footer>
 
-    </div>
-    <!--/.fluid-container-->
+
+
+    <!-- JS -->
+    <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+    <!-- jQuery -->
+    <script src="~/Scripts/bootstrap.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/Scripts/jquery-ui-1.10.2.custom.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+    <!-- Full Google Calendar - Calendar -->
+    <script src="~/Scripts/jquery.rateit.min.js"></script>
+    <!-- RateIt - Star rating -->
+    <script src="~/Scripts/jquery.prettyPhoto.js"></script>
+    <!-- prettyPhoto -->
+
+    <!-- jQuery Flot -->
+    <script src="~/Scripts/excanvas.min.js"></script>
+    <script src="~/Scripts/jquery.flot.js"></script>
+    <script src="~/Scripts/jquery.flot.resize.js"></script>
+    <script src="~/Scripts/jquery.flot.pie.js"></script>
+    <script src="~/Scripts/jquery.flot.stack.js"></script>
+
+    <script src="~/Scripts/jquery.gritter.min.js"></script>
+    <!-- jQuery Gritter -->
+    <script src="~/Scripts/sparklines.js"></script>
+    <!-- Sparklines -->
+    <script src="~/Scripts/jquery.cleditor.min.js"></script>
+    <!-- CLEditor -->
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <!-- Date picker -->
+    <script src="~/Scripts/jquery.toggle.buttons.js"></script>
+    <!-- Bootstrap Toggle -->
+    <script src="~/Scripts/filter.js"></script>
+    <!-- Filter for support page -->
+    <script src="~/Scripts/custom.js"></script>
+    <!-- Custom codes -->
+    <script src="~/Scripts/charts.js"></script>
+    <!-- Custom chart codes -->
+
+    <!-- Script for this page -->
+    <script type="text/javascript">
+        $(function () {
+
+            /* Bar Chart starts */
+
+            var d1 = [];
+            for (var i = 0; i <= 30; i += 1)
+                d1.push([i, parseInt(Math.random() * 30)]);
+
+            var d2 = [];
+            for (var i = 0; i <= 30; i += 1)
+                d2.push([i, parseInt(Math.random() * 30)]);
+
+
+            var stack = 0, bars = true, lines = false, steps = false;
+
+            function plotWithOptions() {
+                $.plot($("#bar-chart"), [d1, d2], {
+                    series: {
+                        stack: stack,
+                        lines: { show: lines, fill: true, steps: steps },
+                        bars: { show: bars, barWidth: 0.8 }
+                    },
+                    grid: {
+                        borderWidth: 0, hoverable: true, color: "#777"
+                    },
+                    colors: ["#52b9e9", "#0aa4eb"],
+                    bars: {
+                        show: true,
+                        lineWidth: 0,
+                        fill: true,
+                        fillColor: { colors: [{ opacity: 0.9 }, { opacity: 0.8 }] }
+                    }
+                });
+            }
+
+            plotWithOptions();
+
+            $(".stackControls input").click(function (e) {
+                e.preventDefault();
+                stack = $(this).val() == "With stacking" ? true : null;
+                plotWithOptions();
+            });
+            $(".graphControls input").click(function (e) {
+                e.preventDefault();
+                bars = $(this).val().indexOf("Bars") != -1;
+                lines = $(this).val().indexOf("Lines") != -1;
+                steps = $(this).val().indexOf("steps") != -1;
+                plotWithOptions();
+            });
+
+            /* Bar chart ends */
+
+        });
+
+
+        /* Curve chart starts */
+
+        $(function () {
+            var sin = [], cos = [];
+            for (var i = 0; i < 14; i += 0.5) {
+                sin.push([i, Math.sin(i)]);
+                cos.push([i, Math.cos(i)]);
+            }
+
+            var plot = $.plot($("#curve-chart"),
+                   [{ data: sin, label: "sin(x)" }, { data: cos, label: "cos(x)" }], {
+                       series: {
+                           lines: {
+                               show: true,
+                               fill: true,
+                               fillColor: {
+                                   colors: [{
+                                       opacity: 0.05
+                                   }, {
+                                       opacity: 0.01
+                                   }]
+                               }
+                           },
+                           points: { show: true }
+                       },
+                       grid: { hoverable: true, clickable: true, borderWidth: 0 },
+                       yaxis: { min: -1.2, max: 1.2 },
+                       colors: ["#fa3031", "#43c83c"]
+                   });
+
+
+            function showTooltip(x, y, contents) {
+                $('<div id="tooltip">' + contents + '</div>').css({
+                    position: 'absolute',
+                    display: 'none',
+                    top: y + 5,
+                    width: 100,
+                    left: x + 5,
+                    border: '1px solid #000',
+                    padding: '2px 8px',
+                    color: '#ccc',
+                    'background-color': '#000',
+                    opacity: 0.9
+                }).appendTo("body").fadeIn(200);
+            }
+
+            var previousPoint = null;
+            $("#curve-chart").bind("plothover", function (event, pos, item) {
+                $("#x").text(pos.x.toFixed(2));
+                $("#y").text(pos.y.toFixed(2));
+
+                if (item) {
+                    if (previousPoint != item.dataIndex) {
+                        previousPoint = item.dataIndex;
+
+                        $("#tooltip").remove();
+                        var x = item.datapoint[0].toFixed(2),
+                            y = item.datapoint[1].toFixed(2);
+
+                        showTooltip(item.pageX, item.pageY, item.series.label + " of " + x + " = " + y);
+                    }
+                }
+                else {
+                    $("#tooltip").remove();
+                    previousPoint = null;
+                }
+            });
+
+            $("#curve-chart").bind("plotclick", function (event, pos, item) {
+                if (item) {
+                    $("#clickdata").text("You clicked point " + item.dataIndex + " in " + item.series.label + ".");
+                    plot.highlight(item.series, item.datapoint);
+                }
+            });
+
+        });
+
+        /* Curve chart ends */
+    </script>
 
     @RenderSection("scripts", required: false)
 </body>
