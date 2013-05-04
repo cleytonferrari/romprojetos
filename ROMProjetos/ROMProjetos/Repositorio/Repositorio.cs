@@ -10,15 +10,15 @@ namespace ROMProjetos.Repositorio
 {
     public class Repositorio<T> where T : class
     {
-        private readonly MongoDatabase db;
-        private readonly MongoServer server;
+        private readonly MongoDatabase _db;
+        private readonly MongoServer _server;
 
         public Repositorio()
         {
             var conneccaoString = new MongoConnectionStringBuilder(ConfigurationManager.ConnectionStrings["ROMProjetos"].ConnectionString);
-            server = MongoServer.Create(conneccaoString);
-            db = server.GetDatabase(conneccaoString.DatabaseName);
-            Collection = db.GetCollection<T>(typeof(T).Name.ToLower());
+            _server = MongoServer.Create(conneccaoString);
+            _db = _server.GetDatabase(conneccaoString.DatabaseName);
+            Collection = _db.GetCollection<T>(typeof(T).Name.ToLower());
 
             //corrige a hora no servidor do banco
             DateTimeSerializationOptions.Defaults = new DateTimeSerializationOptions(DateTimeKind.Local, BsonType.Document);

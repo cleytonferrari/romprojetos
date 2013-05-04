@@ -154,7 +154,6 @@
     </Compile>
     <Compile Include="Helpers\TwitterBootstrapHelpers.cs" />
     <Compile Include="Models\Base\Entidade.cs" />
-    <Compile Include="Models\Base\ObjetoRetorno.cs" />
     <Compile Include="Models\Base\VerificaErros.cs" />
     <Compile Include="Models\Colaborador.cs" />
     <Compile Include="Models\DadosEstaticos.cs" />
