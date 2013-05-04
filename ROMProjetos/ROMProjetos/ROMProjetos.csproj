@@ -273,6 +273,7 @@
     <Content Include="Scripts\jquery.flot.resize.js" />
     <Content Include="Scripts\jquery.flot.stack.js" />
     <Content Include="Scripts\jquery.gritter.min.js" />
+    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.prettyPhoto.js" />
     <Content Include="Scripts\jquery.rateit.min.js" />
     <Content Include="Scripts\jquery.toggle.buttons.js" />

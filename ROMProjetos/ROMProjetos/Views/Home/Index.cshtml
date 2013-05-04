@@ -1,6 +1,11 @@
-﻿@model IEnumerable<ROMProjetos.Controllers.ProjetosDoColaboradorViewModel>
+﻿@using ROMProjetos.Aplicacao
+@using ROMProjetos.Models
+@model IEnumerable<ROMProjetos.Controllers.ProjetosDoColaboradorViewModel>
 @{
     ViewBag.Title = "Atividades e Colaboradores";
+
+    var colaboradores = new ColaboradorAplicacao().Buscar(new Colaborador());
+    var projetos = new ProjetoAplicacao().Buscar(new Projeto());
 }
 
 @section titulo{
@@ -15,9 +20,6 @@
 
         <!-- Breadcrumb -->
         <div class="bread-crumb pull-right">
-            <a href="~/"><i class="icon-home"></i>Home</a>
-            <!-- Divider -->
-            <span class="divider">/</span>
             <a href="#" class="bread-current">Dashboard</a>
         </div>
 
@@ -28,44 +30,130 @@
 }
 
 
+<!-- Today status. jQuery Sparkline plugin used. -->
+<div class="row-fluid">
+    <div class="span12">
+        <!-- List starts -->
+        <ul class="today-datas">
+
+            <!-- List #1 -->
+            <li class="bred">
+                <!-- Graph -->
+                <div class="pull-left"><span id="todayspark1" class="spark"></span></div>
+                <!-- Text -->
+                <div class="datas-text pull-right"><span class="bold">@projetos.Count()</span> Projetos</div>
+
+                <div class="clearfix"></div>
+            </li>
+
+            <li class="bgreen">
+                <!-- Graph -->
+                <div class="pull-left"><i class="icon-group"></i></div>
+                <!-- Text -->
+                <div class="datas-text pull-right"><span class="bold">@colaboradores.Count()</span> <a href="@Url.Action("Index", "Colaborador")">Colaboradores</a></div>
+
+                <div class="clearfix"></div>
+            </li>
+
+            <li class="blightblue">
+                <!-- Graph -->
+                <div class="pull-left"><span id="todayspark2" class="spark"></span></div>
+                <!-- Text -->
+                <div class="datas-text pull-right"><span class="bold">15.66%</span> Bounce Rate</div>
+
+                <div class="clearfix"></div>
+            </li>
+
+            <li class="bviolet">
+                <!-- Graph -->
+                <div class="pull-left"><span id="todayspark3" class="spark"></span></div>
+                <!-- Text -->
+                <div class="datas-text pull-right"><span class="bold">$22,000</span> Total Profit</div>
+
+                <div class="clearfix"></div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!-- Today status ends -->
+
+
+
+
 @foreach (var projetoDoColaborador in Model)
 {
-    
-    <h3 style="margin-bottom: -15px;">@projetoDoColaborador.Colaborador.Nome <a href="@Url.Action("Detalhes", "Colaborador", new { projetoDoColaborador.Colaborador.Id })">»</a></h3>
-       
-    <table class="table table-striped table-condensed">
-        <tr>
-            <th style="width: 20%">Projeto</th>
-            <th style="width: 30%">Título</th>
-            <th>Criada</th>
-            <th>Entrega</th>
-            <th>Peso</th>
-            <th style="width: 8%">Prioridade</th>
-            <th style="width: 8%">Status</th>
-        </tr>
-        @foreach (var projeto in projetoDoColaborador.Projetos)
-        {
-            foreach (var tarefa in projeto.Tarefas)
-            {
-            <tr>
-                <td><a href="@Url.Action("Detalhes", "Projeto", new { id = projeto.Id })">@projeto.Nome</a></td>
-                <td><a href="@Url.Action("Detalhes", "Tarefa", new { id = tarefa.Id })">@tarefa.Titulo</a></td>
+    <div class="row-fluid">
+        <div class="span12">
 
-                <td>@tarefa.CriadaEm.ToShortDateString()</td>
+            <!-- Widget -->
+            <div class="widget wlightblue">
+                <!-- Widget head -->
+                <div class="widget-head">
 
-                @{
-                var urgente = (tarefa.EntregarAte <= DateTime.Now) ? "label label-important" : null;
-                var proximo = (DateTime.Now.AddDays(3) >= tarefa.EntregarAte) ? "label label-warning" : null;
-                var alerta = urgente ?? proximo ?? "";
-                }
-                <td><span class="@alerta" style="margin: -2px">@tarefa.EntregarAte.ToShortDateString()</span></td>
+                    <div class="pull-left"><a href="@Url.Action("Detalhes", "Colaborador", new { projetoDoColaborador.Colaborador.Id })">@projetoDoColaborador.Colaborador.Nome </a></div>
+                    <div class="widget-icons pull-right">
+                        <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                        <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
 
-                <td>@tarefa.Peso</td>
-                <td>@tarefa.Prioridade.Nome</td>
-                <td>@tarefa.Status.Nome</td>
-            </tr>
-            }
-        }
-    </table>
+                <!-- Widget content -->
+                <div class="widget-content">
+                    
+                        @if (projetoDoColaborador.Projetos.Count > 0)
+                        {
+
+
+                            <table class="table table-striped table-condensed">
+                                <tr>
+                                    <th style="width: 20%">Projeto</th>
+                                    <th style="width: 30%">Título</th>
+                                    <th>Criada</th>
+                                    <th>Entrega</th>
+                                    <th>Peso</th>
+                                    <th style="width: 8%">Prioridade</th>
+                                    <th style="width: 8%">Status</th>
+                                </tr>
+                                @foreach (var projeto in projetoDoColaborador.Projetos)
+                                {
+                                    foreach (var tarefa in projeto.Tarefas)
+                                    {
+                                    <tr>
+                                        <td><a href="@Url.Action("Detalhes", "Projeto", new { id = projeto.Id })">@projeto.Nome</a></td>
+                                        <td><a href="@Url.Action("Detalhes", "Tarefa", new { id = tarefa.Id })">@tarefa.Titulo</a></td>
+
+                                        <td>@tarefa.CriadaEm.ToShortDateString()</td>
+
+                                        @{
+                                        var urgente = (tarefa.EntregarAte <= DateTime.Now) ? "label label-important" : null;
+                                        var proximo = (DateTime.Now.AddDays(3) >= tarefa.EntregarAte) ? "label label-warning" : null;
+                                        var alerta = urgente ?? proximo ?? "";
+                                        }
+                                        <td><span class="@alerta">@tarefa.EntregarAte.ToShortDateString()</span></td>
+
+                                        <td>@tarefa.Peso</td>
+                                        <td>@tarefa.Prioridade.Nome</td>
+                                        <td>@tarefa.Status.Nome</td>
+                                    </tr>
+                                    }
+                                }
+                            </table>
+                        }
+                        else
+                        {
+                            <p>Não possui tarefas</p>
+                        }
+                </div>
+                <!-- Widget ends -->
+
+            </div>
+        </div>
+    </div>
 }
+
+
+
+
 
