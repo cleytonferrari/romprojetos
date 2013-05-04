@@ -152,6 +152,10 @@ $('.wclose').click(function(e){
     
   });
 
+
+
+
+
 /* Progressbar animation */
 
     setTimeout(function(){
@@ -267,15 +271,15 @@ $(document).ready(function(){
 
             var unique_id = $.gritter.add({
                 // (string | mandatory) the heading of the notification
-                title: 'Howdy! User',
+                title: 'Olá! Usuário',
                 // (string | mandatory) the text inside the notification
                 text: 'Today you got some messages and new members. Please check it out!',
                 // (string | optional) the image to display on the left
-                image: './img/user-big.jpg',
+                //image: './img/user-big.jpg',
                 // (bool | optional) if you want it to fade out on its own or just sit there
                 sticky: false,
                 // (int | optional) the time you want it to be alive for before fading out
-                time: '',
+                time: '3000',
                 // (string | optional) the class name you want to apply to that specific message
                 class_name: 'gritter-custom'
             });
@@ -291,7 +295,7 @@ $(document).ready(function(){
   }, 4000);
 
   
-  /* On click notification. Refer ui.html file */
+  /* Exemplo de usao de mensagens, neste exemplos é usando o evento click de qualquer elemento, basta adicionar esta classe no elemento e clicar! */
 
   /* Regulat notification */
   $(".notify").click(function(e){

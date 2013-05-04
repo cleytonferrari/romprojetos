@@ -1,5 +1,6 @@
 ﻿@using ROMProjetos.Aplicacao
 @using ROMProjetos.Models
+@using ROMProjetos.Helpers;
 @model IEnumerable<ROMProjetos.Controllers.ProjetosDoColaboradorViewModel>
 @{
     ViewBag.Title = "Atividades e Colaboradores";
@@ -39,9 +40,9 @@
             <!-- List #1 -->
             <li class="bred">
                 <!-- Graph -->
-                <div class="pull-left"><span id="todayspark1" class="spark"></span></div>
+                <div class="pull-left"><i class="icon-file-alt"></i></div>
                 <!-- Text -->
-                <div class="datas-text pull-right"><span class="bold">@projetos.Count()</span> Projetos</div>
+                <div class="datas-text pull-right"><span class="bold">@projetos.Count()</span> <a href="@Url.Action("Index", "Projeto")">Projetos</a></div>
 
                 <div class="clearfix"></div>
             </li>
@@ -87,7 +88,7 @@
         <div class="span12">
 
             <!-- Widget -->
-            <div class="widget wlightblue">
+            <div class="widget wgreen">
                 <!-- Widget head -->
                 <div class="widget-head">
 
@@ -108,12 +109,12 @@
 
                             <table class="table table-striped table-condensed">
                                 <tr>
-                                    <th style="width: 20%">Projeto</th>
-                                    <th style="width: 30%">Título</th>
+                                    <th style="width: 25%">Projeto</th>
+                                    <th style="width: 35%">Título</th>
                                     <th>Criada</th>
                                     <th>Entrega</th>
                                     <th>Peso</th>
-                                    <th style="width: 8%">Prioridade</th>
+                                    <th style="width: 3%" title="Prioridade">P</th>
                                     <th style="width: 8%">Status</th>
                                 </tr>
                                 @foreach (var projeto in projetoDoColaborador.Projetos)
@@ -134,7 +135,8 @@
                                         <td><span class="@alerta">@tarefa.EntregarAte.ToShortDateString()</span></td>
 
                                         <td>@tarefa.Peso</td>
-                                        <td>@tarefa.Prioridade.Nome</td>
+                                        
+                                        <td>@Html.PrioridadeDaTarefa(tarefa.Prioridade.Nome)</td>
                                         <td>@tarefa.Status.Nome</td>
                                     </tr>
                                     }
