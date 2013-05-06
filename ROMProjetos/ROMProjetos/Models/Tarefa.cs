@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using MongoDB.Bson.Serialization.Attributes;
 using ROMProjetos.Models.Base;
 
 namespace ROMProjetos.Models
@@ -11,11 +12,11 @@ namespace ROMProjetos.Models
     {
         public Tarefa()
         {
+            Thread = new List<Thread>();
             Prioridade = new PrioridadeTarefa();
             TipoTarefa = new TipoTarefa();
             Status = new StatusTarefa();
             Colaborador = new Colaborador();
-            LogTarefas = new List<LogTarefa>();
         }
 
         [Display(Name = "Título")]
@@ -49,22 +50,26 @@ namespace ROMProjetos.Models
         [Display(Name = "Colaborador")]
         public Colaborador Colaborador { get; set; }
 
-        [Display(Name = "Status")]
-        public StatusTarefa Status { get; set; }
 
-        public List<LogTarefa> LogTarefas { get; set; }
+        [Display(Name = "Status")]
+        public StatusTarefa Status { get; private set; }
+
+
+        public void SetStatus(StatusTarefa statusTarefa)
+        {
+            if (Status.Chave == statusTarefa.Chave) return;
+
+            Status = statusTarefa;
+            Thread.Add(new LogTarefa { Data = DateTime.Now, Status = statusTarefa });
+        }
+
+        public List<Thread> Thread { get; private set; }
     }
 
     public class StatusTarefa
     {
         public string Nome { get; set; }
         public string Chave { get; set; }
-    }
-
-    public class LogTarefa
-    {
-        public DateTime Data { get; set; }
-        public string Log { get; set; }
     }
 
     public class TipoTarefa
@@ -77,5 +82,27 @@ namespace ROMProjetos.Models
         public string Nome { get; set; }
     }
 
-    //Dados
+    #region Comentarios e Logs
+
+    [BsonKnownTypes(typeof(LogTarefa), typeof(Comentario))]
+    public abstract class Thread
+    {
+        public DateTime Data { get; set; }
+    }
+
+    public class LogTarefa : Thread
+    {
+        public LogTarefa()
+        {
+            Status = new StatusTarefa();
+        }
+        public StatusTarefa Status { get; set; }
+    }
+
+    public class Comentario : Thread
+    {
+        public string Mensagem { get; set; }
+    }
+
+    #endregion
 }

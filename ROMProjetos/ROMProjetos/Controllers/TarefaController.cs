@@ -58,8 +58,10 @@ namespace ROMProjetos.Controllers
             if (ModelState.IsValid)
             {
                 tarefa.Colaborador = new ColaboradorAplicacao().BuscarPorId(idColaborador);
-                tarefa.Status = DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Chave == "aberta");
+                tarefa.SetStatus(DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Chave == "aberta"));
                 tarefa.Id = ObjectId.GenerateNewId().ToString(); //TODO: criar uma convesao no mongo para gerar isso automaticamente
+
+
 
                 projeto.Tarefas.Add(tarefa);
                 projetoAplicacao.Salvar(projeto);
@@ -112,10 +114,38 @@ namespace ROMProjetos.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
-            tarefa.Status = statusBanco;
+            tarefa.SetStatus(statusBanco);
+
             projetoAplicacao.Salvar(projeto);
 
             return Json(tarefa, JsonRequestBehavior.AllowGet);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult PostarMensagem(string id, string mensagem)
+        {
+            var projetoAplicacao = new ProjetoAplicacao();
+
+            var projeto = projetoAplicacao.BuscarPorTarefaId(id);
+
+            var tarefa = projeto.Tarefas.FirstOrDefault(x => x.Id == id);
+
+            if (tarefa == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            var comentario = new Comentario()
+                             {
+                                 Data = DateTime.Now,
+                                 Mensagem = mensagem
+                             };
+
+            tarefa.Thread.Add(comentario);
+
+            projetoAplicacao.Salvar(projeto);
+
+            return RedirectToAction("Detalhes", new { id = id });
         }
     }
 }

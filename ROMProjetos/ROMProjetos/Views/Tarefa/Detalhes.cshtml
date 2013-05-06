@@ -1,4 +1,5 @@
 ﻿@using ROMProjetos.Models
+@using ROMProjetos.Helpers;
 @model ROMProjetos.Models.Tarefa
 
 @{
@@ -6,95 +7,180 @@
     var projeto = ViewBag.projeto as Projeto;
 }
 
-<h2>@projeto.Nome <small>@projeto.Interessado</small></h2>
+@section titulo{
+    <!-- Page heading -->
+    <div class="page-head">
+        <!-- Page heading -->
+        <h2 class="pull-left">@projeto.Nome
+            <!-- page meta -->
+            <span class="page-meta">@projeto.Interessado</span>
+        </h2>
 
-<h3 style="margin-bottom: -30px">@Html.DisplayFor(model => model.Titulo)</h3>
-<hr />
-<div class="container-fluid">
 
-    <div class="span6">
-        <div style="white-space: pre-line">
-            @Html.DisplayFor(model => model.Descricao)
+        <!-- Breadcrumb -->
+        <div class="bread-crumb pull-right">
+            <a href="~/"><i class="icon-home"></i>Dashboard</a>
+            <span class="divider">/</span>
+            <a href="@Url.Action("Detalhes", "Projeto", new { id = projeto.Id })"><i class="icon-home"></i>@projeto.Nome</a>
+            <span class="divider">/</span>
+            <a href="javascript:;" class="bread-current">Tarefa</a>
         </div>
+
+        <div class="clearfix"></div>
+
     </div>
-    <div class="span6">
-
-        <div class="container-fluid">
-
-            @Ajax.ActionLink("Concluir", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn btn-success btn-small" })
-            @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn btn-danger btn-small" })
-            
-            <div class="btn-group">
-                <a class="btn btn-primary dropdown-toggle btn-small" data-toggle="dropdown" href="#">Workflow<span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        @Ajax.ActionLink("Aberta", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "aberta" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
-                    </li>
-                    <li>
-                        @Ajax.ActionLink("Sendo Feita", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "sendofeita" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
-                    </li>
-                    <li>
-                        @Ajax.ActionLink("Concluída", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
-                    </li>
-                    <li>
-                        @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
-                    </li>
-                </ul>
-            </div>
-            
-            <a href="@Url.Action("Index", "Tarefa", new { idProjeto = projeto.Id })" class="btn btn-small">Lista de Tarefas</a>
-
-            <div class="muted">
-                @Html.DisplayNameFor(model => model.Peso)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.Peso)
-            </div>
-
-
-            <div class="muted">
-                @Html.DisplayNameFor(model => model.CriadaEm)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.CriadaEm)
-            </div>
+    <!-- Page heading ends -->
+}
 
 
 
-            <div class="muted">
-                @Html.DisplayNameFor(model => model.EntregarAte)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.EntregarAte)
+<div class="row-fluid">
+
+    <div class="span8">
+
+        <div class="widget wviolet">
+            <div class="widget-head">
+                <div class="pull-left">Dados da Tarefa</div>
+                <div class="widget-icons pull-right">
+                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                </div>
+                <div class="clearfix"></div>
             </div>
 
-
-            <div class="muted">
-                @Html.DisplayNameFor(model => model.Prioridade)
+            <div class="widget-content">
+                <div class="padd">
+                    <!-- dados da tarefa -->
+                    <h6>@Html.DisplayFor(model => model.Titulo)</h6>
+                    <hr />
+                    <p>@Html.DisplayFor(model => model.Descricao)</p>
+                </div>
             </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.Prioridade.Nome)
-            </div>
-
-            <div class="muted">
-                @Html.DisplayNameFor(model => model.TipoTarefa)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.TipoTarefa.Nome)
-            </div>
-
-            <div class="muted">
-                @Html.DisplayNameFor(model => model.Status)
-            </div>
-            <div class="display-field" id="status">
-                @Html.DisplayFor(model => model.Status.Nome)
+            <div class="widget-foot">
+                Dias restantes : 205
             </div>
         </div>
-        
+
+        <div class="widget wblue">
+            <div class="widget-head">
+                <div class="pull-left">Comentários</div>
+                <div class="widget-icons pull-right">
+                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="widget-content">
+                <div class="padd">
+                    <ul class="chats">
+                        @foreach (var thread in Model.Thread)
+                        {
+                            <li class="by-me">
+                                <div class="avatar pull-left">
+                                    <img src="img/user.jpg" alt="">
+                                </div>
+
+                                <div class="chat-content">
+                                    <div class="chat-meta">Cleyton Ferrari <span class="pull-right">@thread.Data.ToLongDateString() as @thread.Data.ToShortTimeString()</span></div>
+                                    @{
+                            var texto = "";
+                            if (thread.GetType() == typeof(LogTarefa))
+                            {
+                                texto = String.Format("Alterado o status para <strong>{0}</strong>", ((LogTarefa)thread).Status.Nome);
+                            }
+                            else if (thread.GetType() == typeof(Comentario))
+                            {
+                                texto = ((Comentario)thread).Mensagem;
+                            }
+                                    }
+
+                                    @Html.Raw(texto)
+                                    <div class="clearfix">
+                                    </div>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <div class="widget-foot">
+
+                <!-- Chat input box -->
+                @using (Html.BeginForm("PostarMensagem", "Tarefa", FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    <div class="input-append row-fluid">
+                        @Html.Hidden("id", Model.Id)
+                        <input type="text" id="mensagem" name="mensagem" class="span10" placeholder="Digite sua mensagem">
+                        <button type="submit" class="btn btn-info">Enviar</button>
+                    </div>
+                 
+                }
+            </div>
+        </div>
+
     </div>
+
+    <!-- tarefa sidebar -->
+
+    <div class="span4">
+
+        <div class="widget wgreen">
+            <div class="widget-head">
+                <div class="pull-left">Detalhes</div>
+                <div class="widget-icons pull-right">
+                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
+                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="widget-content">
+                <div class="padd">
+
+                    @Html.DisplayNameFor(model => model.Status): <strong id="status">@Html.DisplayFor(model => model.Status.Nome)</strong>
+                    <hr />
+                    @Html.DisplayNameFor(model => model.Peso): <strong>@Html.DisplayFor(model => model.Peso)</strong>
+                    <hr />
+                    @Html.DisplayNameFor(model => model.CriadaEm): <strong>@Html.DisplayFor(model => model.CriadaEm)</strong>
+                    <hr />
+                    @Html.DisplayNameFor(model => model.EntregarAte): <strong>@Html.DisplayFor(model => model.EntregarAte)</strong>
+                    <hr />
+                    @Html.DisplayNameFor(model => model.Prioridade): @Html.PrioridadeDaTarefa(Model.Prioridade.Nome) <strong>@Html.DisplayFor(model => model.Prioridade.Nome)</strong>
+                    <hr />
+                    @Html.DisplayNameFor(model => model.TipoTarefa): <strong>@Html.DisplayFor(model => model.TipoTarefa.Nome)</strong>
+
+                </div>
+            </div>
+            <div class="widget-foot">
+                @Ajax.ActionLink("Concluir", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn " })
+                @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn btn-danger" })
+
+                <div class="btn-group">
+                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">Workflow<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Ajax.ActionLink("Aberta", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "aberta" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("Sendo Feita", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "sendofeita" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("Concluída", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
-
 
 
 

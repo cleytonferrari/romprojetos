@@ -36,6 +36,13 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Interessado)
     </div>
+    
+    <div class="muted">
+        @Html.DisplayNameFor(model => model.Status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Status.Nome)
+    </div>
 </fieldset>
 <div class="form-actions">
     <a href="@Url.Action("CriarTarefa", "Tarefa", new { idProjeto = Model.Id })" class="btn btn-primary btn-small">Nova Tarefa</a>
