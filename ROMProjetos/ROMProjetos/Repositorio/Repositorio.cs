@@ -13,11 +13,16 @@ namespace ROMProjetos.Repositorio
         private readonly MongoDatabase db;
         private readonly MongoServer server;
 
+        private static string GetMongoDbConnectionString()
+        {
+            return ConfigurationManager.AppSettings.Get("MONGOLAB_URI") ??
+                   ConfigurationManager.ConnectionStrings["ROMProjetos"].ConnectionString;
+        }
+
         public Repositorio()
         {
-            var connectionString = new MongoConnectionStringBuilder(Environment.GetEnvironmentVariable("MONGOLAB_URI"));
-            //var connectionString = new MongoConnectionStringBuilder(ConfigurationManager.ConnectionStrings["ROMProjetos"].ConnectionString);
-
+            var connectionString = new MongoConnectionStringBuilder(GetMongoDbConnectionString());
+            
             var mongoSettings = new MongoClientSettings
                                     {
                                         Server = connectionString.Server,
