@@ -28,6 +28,7 @@ namespace ROMProjetos.Models
 
         [Display(Name = "Data Final")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required(ErrorMessage = "Preencha a data final do projeto")]
         public DateTime DataFinal { get; set; }
 
         [Display(Name = "Interessado")]
