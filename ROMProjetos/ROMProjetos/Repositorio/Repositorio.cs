@@ -15,7 +15,8 @@ namespace ROMProjetos.Repositorio
 
         public Repositorio()
         {
-            var connectionString = new MongoConnectionStringBuilder(ConfigurationManager.ConnectionStrings["ROMProjetos"].ConnectionString);
+            var connectionString = new MongoConnectionStringBuilder(Environment.GetEnvironmentVariable("MONGOLAB_URI"));
+            //var connectionString = new MongoConnectionStringBuilder(ConfigurationManager.ConnectionStrings["ROMProjetos"].ConnectionString);
 
             var mongoSettings = new MongoClientSettings
                                     {
