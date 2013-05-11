@@ -21,17 +21,11 @@ namespace ROMProjetos.Repositorio
 
         public Repositorio()
         {
-            var connectionString = new MongoConnectionStringBuilder(GetMongoDbConnectionString());
-            
-            var mongoSettings = new MongoClientSettings
-                                    {
-                                        Server = connectionString.Server,
-                                        //DefaultCredentials = new MongoCredentials(connectionString.Username, connectionString.Password)
-                                    };
-            var mongoClient = new MongoClient(mongoSettings);
-            
-            server = mongoClient.GetServer();
-            db = server.GetDatabase(connectionString.DatabaseName);
+            var url = new MongoUrl(GetMongoDbConnectionString());
+            var client = new MongoClient(url);
+            server = client.GetServer();
+            db = server.GetDatabase(url.DatabaseName);
+
             Collection = db.GetCollection<T>(typeof(T).Name.ToLower());
 
             //corrige a hora no servidor do banco
