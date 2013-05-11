@@ -1,4 +1,5 @@
-﻿@{
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
     //Layout = null;
 }
 <!-- Form area -->
@@ -17,18 +18,18 @@
                     <div class="widget-content">
                         <div class="padd error">
 
-                            <h1>Opps!!! It's 404</h1>
-                            <p>Aliquam consequat, purus vitae auctor ullamcorper, sem velit convallis quam, a pharetra justo nunc et mauris. </p>
+                            <h1>Opps!!! Isto é um erro</h1>
+                            <p>@Model.Exception.Message</p>
                             <br />
 
                             <form method="get" id="searchform" action="#" class="form-search">
                                 <input type="text" value="" name="s" id="s" class="input-medium" />
-                                <button type="submit" class="btn">Search</button>
+                                <button type="submit" class="btn">Buscar</button>
                             </form>
 
                             <br />
                             <div class="horizontal-links">
-                                <a href="index.html">Home</a> | <a href="#">About Us</a> | <a href="#">Contact us</a> | <a href="#">FAQ</a>
+                                <a href="@Url.Action("Index","Home")">Dashboard</a> | <a href="@Url.Action("Index","Projeto")">Projetos</a>
                             </div>
 
                         </div>
