@@ -27,7 +27,7 @@
 	background: #f7f7f7; 
 	padding: 7px 10px;
 	font-size: 12px;
-	border-top: 2px solid #fa3031;
+	border-top: 2px solid #ccc;
 }
 
 .chats .by-me .chat-content:after, .chats .by-me .chat-content:before { 

@@ -21,9 +21,11 @@
         <div class="bread-crumb pull-right">
             <a href="~/"><i class="icon-home"></i>Dashboard</a>
             <span class="divider">/</span>
-            <a href="@Url.Action("Detalhes", "Projeto", new { id = projeto.Id })"><i class="icon-home"></i>@projeto.Nome</a>
+            <a href="@Url.Action("Detalhes", "Projeto", new { id = projeto.Id })"><i class="icon-file-alt"></i>@projeto.Nome</a>
             <span class="divider">/</span>
-            <a href="javascript:;" class="bread-current">Tarefa</a>
+            <a href="@Url.Action("Index", "Tarefa", new { idProjeto = projeto.Id })" class="bread-current">Tarefas</a>
+
+
         </div>
 
         <div class="clearfix"></div>
@@ -43,7 +45,6 @@
                 <div class="pull-left">Dados da Tarefa</div>
                 <div class="widget-icons pull-right">
                     <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -53,7 +54,7 @@
                     <!-- dados da tarefa -->
                     <h6>@Html.DisplayFor(model => model.Titulo)</h6>
                     <hr />
-                    <p>@Html.DisplayFor(model => model.Descricao)</p>
+                    <p style="white-space: pre-line">@Html.DisplayFor(model => model.Descricao)</p>
                 </div>
             </div>
             <div class="widget-foot">
@@ -66,7 +67,6 @@
                 <div class="pull-left">Comentários</div>
                 <div class="widget-icons pull-right">
                     <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -131,7 +131,6 @@
                 <div class="pull-left">Detalhes</div>
                 <div class="widget-icons pull-right">
                     <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -154,8 +153,17 @@
                 </div>
             </div>
             <div class="widget-foot">
-                @Ajax.ActionLink("Concluir", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn " })
-                @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn btn-danger" })
+
+                @if (Model.Status.Chave == "concluida" || Model.Status.Chave == "cancelada")
+                {
+                    @Ajax.ActionLink("Reabrir", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "aberta" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn" })
+                }
+                else
+                {
+                    @Ajax.ActionLink("Concluir", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn " })
+                    @: 
+                    @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn btn-danger" })
+                }
 
                 <div class="btn-group">
                     <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">Workflow<span class="caret"></span>
