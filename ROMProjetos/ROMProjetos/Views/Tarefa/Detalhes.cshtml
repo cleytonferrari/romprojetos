@@ -42,7 +42,7 @@
 
         <div class="widget wviolet">
             <div class="widget-head">
-                <div class="pull-left">Dados da Tarefa</div>
+                <div class="pull-left">@Html.DisplayFor(model => model.Titulo)</div>
                 <div class="widget-icons pull-right">
                     <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
                 </div>
@@ -52,8 +52,6 @@
             <div class="widget-content">
                 <div class="padd">
                     <!-- dados da tarefa -->
-                    <h6>@Html.DisplayFor(model => model.Titulo)</h6>
-                    <hr />
                     <p style="white-space: pre-line">@Html.DisplayFor(model => model.Descricao)</p>
                 </div>
             </div>
@@ -82,12 +80,12 @@
                                 </div>
 
                                 <div class="chat-content">
-                                    <div class="chat-meta">Cleyton Ferrari <span class="pull-right">@thread.Data.ToLongDateString() as @thread.Data.ToShortTimeString()</span></div>
+                                    <div class="chat-meta">@thread.Colaborador.Nome<span class="pull-right">@thread.Data.ToLongDateString() as @thread.Data.ToShortTimeString()</span></div>
                                     @{
                             var texto = "";
                             if (thread.GetType() == typeof(LogTarefa))
                             {
-                                texto = String.Format("Alterado o status para <strong>{0}</strong>", ((LogTarefa)thread).Status.Nome);
+                                texto = String.Format("<ul><li>Alterado o status para <strong>{0}</strong></li></ul> {1}", ((LogTarefa)thread).Status.Nome, ((LogTarefa)thread).Mensagem);
                             }
                             else if (thread.GetType() == typeof(Comentario))
                             {
@@ -144,6 +142,8 @@
                     <hr />
                     @Html.DisplayNameFor(model => model.CriadaEm): <strong>@Html.DisplayFor(model => model.CriadaEm)</strong>
                     <hr />
+                    @Html.DisplayNameFor(model => model.Autor): <strong>@Html.DisplayFor(model => model.Autor.Nome)</strong>
+                    <hr />
                     @Html.DisplayNameFor(model => model.EntregarAte): <strong>@Html.DisplayFor(model => model.EntregarAte)</strong>
                     <hr />
                     @Html.DisplayNameFor(model => model.Prioridade): @Html.PrioridadeDaTarefa(Model.Prioridade.Nome) <strong>@Html.DisplayFor(model => model.Prioridade.Nome)</strong>
@@ -156,13 +156,12 @@
 
                 @if (Model.Status.Chave == "concluida" || Model.Status.Chave == "cancelada")
                 {
-                    @Ajax.ActionLink("Reabrir", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "aberta" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn" })
+                    <a href="#myModal" class="open-Dialog btn" data-toggle="modal" data-id="@Model.Id" data-status="Reabrir" data-value="aberta">Reabrir</a>
                 }
                 else
                 {
-                    @Ajax.ActionLink("Concluir", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn " })
-                    @: 
-                    @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" }, new { @class = "btn btn-danger" })
+                    <a href="#myModal" class="open-Dialog btn" data-toggle="modal" data-id="@Model.Id" data-status="Concluir" data-value="concluida">Concluir</a>
+                    <a href="#myModal" class="open-Dialog btn btn-danger" data-toggle="modal" data-id="@Model.Id" data-status="Cancelar" data-value="cancelada">Cancelar</a>
                 }
 
                 <div class="btn-group">
@@ -170,16 +169,16 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            @Ajax.ActionLink("Aberta", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "aberta" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                            <a href="#myModal" class="open-Dialog" data-toggle="modal" data-id="@Model.Id" data-status="Aberta" data-value="aberta">Reabrir</a>
                         </li>
                         <li>
-                            @Ajax.ActionLink("Sendo Feita", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "sendofeita" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                            <a href="#myModal" class="open-Dialog" data-toggle="modal" data-id="@Model.Id" data-status="Sendo Feita" data-value="sendofeita">Sendo Feita</a>
                         </li>
                         <li>
-                            @Ajax.ActionLink("Concluída", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "concluida" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                            <a href="#myModal" class="open-Dialog" data-toggle="modal" data-id="@Model.Id" data-status="Concluída" data-value="concluida">Concluída</a>
                         </li>
                         <li>
-                            @Ajax.ActionLink("Cancelar", "AlterarStatus", "Tarefa", new { Id = Model.Id, Status = "cancelada" }, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "sucesso", OnFailure = "erro" })
+                            <a href="#myModal" class="open-Dialog" data-toggle="modal" data-id="@Model.Id" data-status="Cancelar" data-value="cancelar">Cancelar</a>
                         </li>
                     </ul>
                 </div>
@@ -188,12 +187,63 @@
 
     </div>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel"></h3>
+        </div>
+        @using (Ajax.BeginForm("AlterarStatusForm", "Tarefa", new AjaxOptions
+        {
+            UpdateTargetId = "targetDiv",
+            OnSuccess = "OnSuccess",
+            HttpMethod = "POST"
+        }))
+        {
+            <div class="modal-body">
+                <div class="control-group">
+                    <div id="targetDiv"></div>
+                    <label class="control-label">Comentário</label>
+                    <div class="controls">
+                        <textarea id="statusComentario" name="statusComentario" class="span4"></textarea>
+                    </div>
+                </div>
+                <input type="hidden" name="statusId" id="statusId" value="" />
+                <input type="hidden" name="statusValue" id="statusValue" value="" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">Salvar</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        }
+    </div>
+
 </div>
 
 
 
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).on("click", ".open-Dialog", function () {
+            var statusId = $(this).data('id');
+            var statusNome = $(this).data('status');
+            var statusValue = $(this).data('value');
+            $(".modal-body #statusId").val(statusId);
+            $(".modal-body #statusValue").val(statusValue);
+            $(".modal-header #myModalLabel").text(statusNome + " tarefa");
+            $("#statusComentario").val("");
+        });
+    </script>
+}
+
 
 <script type="text/javascript">
+    function OnSuccess() {
+        //muito feio isso daqui
+        $('#myModal').modal('hide');
+        location.reload();
+    }
 
     function sucesso(tarefa) {
         console.log(tarefa);

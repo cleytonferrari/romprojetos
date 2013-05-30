@@ -50,18 +50,21 @@ namespace ROMProjetos.Models
         [Display(Name = "Colaborador")]
         public Colaborador Colaborador { get; set; }
 
+        [Display(Name = "Autor")]
+        public Colaborador Autor { get; set; }
 
         [Display(Name = "Status")]
         public StatusTarefa Status { get; private set; }
 
-
-        public void SetStatus(StatusTarefa statusTarefa)
+        public void SetStatus(Colaborador colaborador, StatusTarefa statusTarefa, String mensagem)
         {
             if (Status.Chave == statusTarefa.Chave) return;
 
             Status = statusTarefa;
-            Thread.Add(new LogTarefa { Data = DateTime.Now, Status = statusTarefa });
+            Thread.Add(new LogTarefa { Data = DateTime.Now, Status = statusTarefa, Colaborador = colaborador, Mensagem = mensagem });
         }
+
+
 
         public List<Thread> Thread { get; private set; }
     }
@@ -88,6 +91,8 @@ namespace ROMProjetos.Models
     public abstract class Thread
     {
         public DateTime Data { get; set; }
+        public Colaborador Colaborador { get; set; }
+        public string Mensagem { get; set; }
     }
 
     public class LogTarefa : Thread
@@ -101,7 +106,7 @@ namespace ROMProjetos.Models
 
     public class Comentario : Thread
     {
-        public string Mensagem { get; set; }
+
     }
 
     #endregion

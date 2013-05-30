@@ -49,6 +49,12 @@ namespace ROMProjetos.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult CriarTarefa(Tarefa tarefa, string idProjeto, string idColaborador)
         {
+            var colaboradorLogado = new Colaborador
+            {
+                Email = "usuario@logado.com",
+                Nome = "Usuario Logado"
+            };
+
             var projetoAplicacao = new ProjetoAplicacao();
             var projeto = projetoAplicacao.BuscarPorId(idProjeto);
             if (projeto == null)
@@ -58,10 +64,10 @@ namespace ROMProjetos.Controllers
             if (ModelState.IsValid)
             {
                 tarefa.Colaborador = new ColaboradorAplicacao().BuscarPorId(idColaborador);
-                tarefa.SetStatus(DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Chave == "aberta"));
+                tarefa.SetStatus(colaboradorLogado, DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Chave == "aberta"), "Criado a tarefa");
                 tarefa.Id = ObjectId.GenerateNewId().ToString(); //TODO: criar uma convesao no mongo para gerar isso automaticamente
 
-
+                tarefa.Autor = colaboradorLogado;
 
                 projeto.Tarefas.Add(tarefa);
                 projetoAplicacao.Salvar(projeto);
@@ -95,7 +101,7 @@ namespace ROMProjetos.Controllers
             return View(tarefa);
         }
 
-        [System.Web.Mvc.HttpPost]
+        /*[System.Web.Mvc.HttpPost]
         public JsonResult AlterarStatus(string id, string status)
         {
             var projetoAplicacao = new ProjetoAplicacao();
@@ -119,11 +125,49 @@ namespace ROMProjetos.Controllers
             projetoAplicacao.Salvar(projeto);
 
             return Json(tarefa, JsonRequestBehavior.AllowGet);
+        }*/
+
+        [System.Web.Mvc.HttpPost]
+        public JsonResult AlterarStatusForm(string statusId, string statusValue, string statusComentario)
+        {
+            var colaboradorLogado = new Colaborador
+            {
+                Email = "usuario@logado.com",
+                Nome = "Usuario Logado"
+            };
+
+            var projetoAplicacao = new ProjetoAplicacao();
+
+            var projeto = projetoAplicacao.BuscarPorTarefaId(statusId);
+
+            var tarefa = projeto.Tarefas.FirstOrDefault(x => x.Id == statusId);
+
+            if (tarefa == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            var statusBanco = DadosEstaticos.StatusTarefa.FirstOrDefault(x => x.Chave == statusValue.ToLower());
+            if (statusBanco == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            tarefa.SetStatus(colaboradorLogado, statusBanco, statusComentario);
+
+            projetoAplicacao.Salvar(projeto);
+
+            return Json(tarefa, JsonRequestBehavior.AllowGet);
         }
 
         [System.Web.Mvc.HttpPost]
         public ActionResult PostarMensagem(string id, string mensagem)
         {
+            var colaboradorLogado = new Colaborador
+            {
+                Email = "usuario@logado.com",
+                Nome = "Usuario Logado"
+            };
             var projetoAplicacao = new ProjetoAplicacao();
 
             var projeto = projetoAplicacao.BuscarPorTarefaId(id);
@@ -138,7 +182,8 @@ namespace ROMProjetos.Controllers
             var comentario = new Comentario()
                              {
                                  Data = DateTime.Now,
-                                 Mensagem = mensagem
+                                 Mensagem = mensagem,
+                                 Colaborador = colaboradorLogado
                              };
 
             tarefa.Thread.Add(comentario);
